@@ -30,4 +30,4 @@ class HotelsController(Controller):
         data = ehotal.getHotels(page=int(pageNo), sort=int(sort), keyword=keyword)
         hotels = data['data']['hotelList']
         pages = data['data']['page']
-        return view.render('hotelsView', {'hotelsList': hotels, 'pages': pages})
+        return view.render('hotelsView', {'hotelsList': hotels, 'pages': pages, 'sort': sort})

@@ -21,6 +21,31 @@
     .price{
         color: red;
     }
+    .sortBtn{
+      padding: 10px 45px;
+      -webkit-box-shadow: 0px 0px 20px 11px rgba(0, 0, 0, 0.09);
+      box-shadow: 0px 0px 20px 11px rgba(0, 0, 0, 0.09);
+      background-color: #ffffff;
+    }
+
+    .sortBtn{
+      outline: none;
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      border-radius: 0;
+      height: 45px;
+      margin: 10px 0;
+    }
+
+    .sortBtn button {
+      background-color: #f97616;
+      color: #ffffff;
+      text-transform: uppercase;
+      border: none;
+      height: 45px;
+      width: 100%;
+      margin: 10px 0;
+    }
 
   </style>
   <link rel="stylesheet" href="{{ static('asset', 'css/my-page.css') }}">
@@ -48,7 +73,29 @@
 
   <!-- end find section -->
 
+<section class="find_section ">
+    <div class="container">
+      <div class="sortBtn">
+        <div class=" form-row">
+          <div class="col-md-3">
+              <button class="btn btn-default {{ 'active' if sort=='1' else '' }}" onclick="sortHotel(1)">优选酒店</button>
+          </div>
 
+          <div class="col-md-3">
+              <button class="btn btn-default {{ 'active' if sort=='4' else '' }}" onclick="sortHotel(4)">每晚房价向上排序</button>
+          </div>
+
+          <div class="col-md-3">
+              <button class="btn btn-default {{ 'active' if sort=='5' else '' }}" onclick="sortHotel(5)">每晚房价向下排序</button>
+          </div>
+
+          <div class="col-md-3">
+              <button class="btn btn-default {{ 'active' if sort=='6' else '' }}" onclick="sortHotel(6)">评价由高到低</button>
+          </div>
+    </div>
+      </div>
+    </div>
+  </section>
   <!-- about section -->
 
   <section class="about_section layout_padding-bottom">
@@ -116,6 +163,16 @@
             this.location = nUrl;
         　　window.location.href=nUrl
         }
+        function getQueryVariable(variable)
+        {
+           var query = window.location.search.substring(1);
+           var vars = query.split("&");
+           for (var i=0;i<vars.length;i++) {
+                   var pair = vars[i].split("=");
+                   if(pair[0] == variable){return pair[1];}
+           }
+           return(false);
+        }
         myPageInit({
             pages: {{ pages['pageTotal'] }},
             currentPage: {{ pages['pageNo'] }},
@@ -127,6 +184,13 @@
 
             }
         });
+         function sortHotel(sort) {
+             if (getQueryVariable('sort') == sort) {
+                 replaceParamVal("sort", 0)
+             } else {
+                 replaceParamVal("sort", sort)
+             }
+         }
 </script>
   <!-- end about section -->
 {% endblock %}
