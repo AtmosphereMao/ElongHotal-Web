@@ -13,8 +13,8 @@ from binascii import a2b_hex
 
 regionId = '179900'
 filterName = ''
-GET_URL = 'http://ihotel.elong.com/region_%s/?keyword=%s&filterName=%s'
-GET_HOTALS_URL = 'http://ihotel.elong.com/list/GetHotelListFromhotel?searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=' # regionId | 查询内容 | 排序0,1 | 页数 | code
+GET_URL = 'http://ihotel.elong.com/region_%s/'
+GET_HOTALS_URL = 'http://ihotel.elong.com/list/GetHotelListFromhotel' # regionId | 查询内容 | 排序0,1 | 页数 | code
 GET_SCRIPTCODE_URL = 'http://ihotel.elong.com/list/scriptCode?regionId=%s&_=%i'
 
 # 请求头
@@ -102,8 +102,10 @@ class PrpCrypt(object):
 
 
 def getHotels(page=1, sort=0, keyword=""):
+    params = {'keyword': keyword, 'filterName' : filterName}
     # 访问首页
-    request = urllib.request.Request(url=GET_URL % (regionId, keyword, filterName),
+    request = urllib.request.Request(url=GET_URL % regionId,
+                                     data=urllib.parse.urlencode(params).encode(encoding='UTF-8'),
                                      method='GET')
     response = opener.open(request)
     # 获取需解密的内容
@@ -116,7 +118,19 @@ def getHotels(page=1, sort=0, keyword=""):
     print("code:", code)
 
     # 爬取酒店列表  # regionId | 查询内容 | 排序0,1 | 页数 | code
-    request = urllib.request.Request(url=GET_HOTALS_URL % (regionId, keyword, sort, page, code),
+    # searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=
+    params = {'searchFeatures': '[]',
+              'regionId': regionId,
+              'keyword': keyword,
+              'sort': sort,
+              'traceToken': '',
+              'pageNo': page,
+              'code': code,
+              'groupId': ''
+              }
+    data = urllib.parse.urlencode(params)
+    # GET_HOTALS_URL+"?searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=" % (regionId, keyword, sort, page, code)
+    request = urllib.request.Request(url=GET_HOTALS_URL+"?"+data,
                                      method='GET')
     response = opener.open(request)
     # 获取需解密的内容

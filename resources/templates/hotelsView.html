@@ -52,13 +52,13 @@
      <!-- find section -->
   <section class="find_section ">
     <div class="container">
-      <form action="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">
+      <form action="{{ route('hotels') }}" method="get">
         <div class=" form-row">
-          <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="Serach Your Categories ">
-          </div>
-          <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="Location ">
+          <div class="col-md-10">
+              {{ csrf_field }}
+            <input type="text" class="form-control" name="keyword" placeholder="查询关键词 商圈/位置/酒店名 ">
+            <input type="text" class="form-control" hidden name="page" value="{{ pages['pageNo'] }}">
+            <input type="text" class="form-control" hidden name="sort" value="{{ sort }}">
           </div>
           <div class="col-md-2">
             <button type="submit" class="">
@@ -72,7 +72,7 @@
   </section>
 
   <!-- end find section -->
-
+  <!-- sort section -->
 <section class="find_section ">
     <div class="container">
       <div class="sortBtn">
