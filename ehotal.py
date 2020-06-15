@@ -12,7 +12,6 @@ import base64
 from binascii import a2b_hex
 
 regionId = '179900'
-keyword = ''
 filterName = ''
 GET_URL = 'http://ihotel.elong.com/region_%s/?keyword=%s&filterName=%s'
 GET_HOTALS_URL = 'http://ihotel.elong.com/list/GetHotelListFromhotel?searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=' # regionId | 查询内容 | 排序0,1 | 页数 | code
@@ -93,8 +92,6 @@ class PrpCrypt(object):
         return str(base64.b64encode(self.ciphertext), 'utf-8')
 
     def decrypt(self, text):
-        # iv = base64.b64decode(text)[0:16]
-        # encry_text = base64.b64decode(text)
         encry_text = a2b_hex(text)  # 转换为16进制
         cryptor = AES.new(self.key, self.mode, self.iv)
 
@@ -104,7 +101,7 @@ class PrpCrypt(object):
 
 
 
-def getHotals():
+def getHotels(page=1, sort=0, keyword=""):
     # 访问首页
     request = urllib.request.Request(url=GET_URL % (regionId, keyword, filterName),
                                      method='GET')
@@ -119,18 +116,14 @@ def getHotals():
     print("code:", code)
 
     # 爬取酒店列表  # regionId | 查询内容 | 排序0,1 | 页数 | code
-    request = urllib.request.Request(url=GET_HOTALS_URL % (regionId, keyword, 0, 1, code),
+    request = urllib.request.Request(url=GET_HOTALS_URL % (regionId, keyword, sort, page, code),
                                      method='GET')
     response = opener.open(request)
     # 获取需解密的内容
     html = response.read().decode('utf-8')
     hotels = json.loads(html)
-    if hotels['errno'] != 0:
-        print("获取酒店发生错误")
-        return False
-    else:
-        print(hotels['data']['hotelList'])
-    return True
+
+    return hotels
 
 
 class AesCrypt:
@@ -177,9 +170,11 @@ class AesCrypt:
         return regionId + "a" + m
 
 def main():
-    if getHotals():
-        pass
-
+    hotels = getHotels()
+    if hotels['errno'] != 0:
+        print("获取酒店发生错误")
+    else:
+        print(hotels['data'])
 
 if __name__ == '__main__':
     main()

@@ -1,29 +1,131 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Basic -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Site Metas -->
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>{% block title %} {{ config('application.name', 'Masonite') }} {% endblock %}</title>
+  <title>Teaser</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    
-    {% block css %}{% endblock %}
+       <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ static('asset', 'css/bootstrap.css') }}">
+ <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- fonts style -->
+  <link href="{{ static('asset', 'css/astyle.css') }}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{{ static('asset', 'css/common.css') }}"rel="stylesheet">
+  <!-- responsive style -->
+  <link href="{{ static('asset', 'css/responsive.css') }}" rel="stylesheet">
 </head>
-
 <body>
+<!--<div class="adcenter"><script src="./Teaser_files/ggad2_728x90.js.下载"></script><link type="text/css" rel="stylesheet" href="./Teaser_files/astyle.css">-->
+<!--<div align="center">-->
+<!--<a href="http://www.cssmoban.com/item/Getclick.asp?Action=Count&amp;GetFlag=0&amp;m=1&amp;ID=8" rel="nofollow" target="_blank"><img src="./Teaser_files/202002161520324123.jpg" alt="" border="0" style="height: 90px!important;width:970px!important;"></a>-->
+<!--</div>-->
+<!--</div>-->
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">
+            <a class="navbar-brand" href="/home">{{ config('application.name') }}</a>
+          </a>
+          <div class="navbar-collapse" id="">
+            <ul class="navbar-nav justify-content-between ">
+              <div class="User_option">
+                <li class="">
+                  <a class="mr-4" href="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">
+                    Login
+                  </a>
+                  <a class="" href="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">
+                    Sign up
+                  </a>
+                </li>
+              </div>
+            </ul>
 
-    <div class="flex-center position-ref full-height">
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1">
 
+                </span>
+                <span class="s-2">
+
+                </span>
+                <span class="s-3">
+
+                </span>
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">HOME</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+   <!-- slider section -->
+    <section class="slider_section ">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 offset-md-1">
+            <div class="detail-box">
+              <h1>
+                <span> 艺龙</span> <br>
+                东京酒店
+              </h1>
+              <p>
+                这是一个利用requests爬取艺龙酒店数据，并基于Masonite搭建作显示的站点。
+              </p>
+              <div class="btn-box">
+                <a href="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html" class="">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
         <div class="content">
             {% block content %}
-            
+
             {% endblock %}
         </div>
+     <!-- footer section -->
+  <section class="container-fluid">
+      <center>
+    <div class="container">
+      <p>
+        © <span id="displayYear">2020</span> <a href="https://atmospheremao.com/" target="_blank">atmospheremao.com </a>
+      </p>
     </div>
-</body>
+          </center>
+  </section>
+  <!-- end  footer section -->
 
+
+  <!--<script type="text/javascript" src="./Teaser_files/jquery-3.4.1.min.js.下载"></script>-->
+  <!--<script type="text/javascript" src="./Teaser_files/bootstrap.js.下载"></script>-->
+  <!--<script type="text/javascript" src="./Teaser_files/custom.js.下载"></script>-->
+
+
+
+
+</body>
 </html>

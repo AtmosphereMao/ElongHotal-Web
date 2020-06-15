@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .hotelNameEn{
+        color: gray;
+    }
+    .hotelComment{
+        color: gold;
+    }
+    .hotelLabels{
+        font-weight: bold;
+    }
+    .hotelDistrict{
+
+    }
+    .hotelBookInfo{
+        color: green;
+        font-size: 16px;
+    }
+    .price{
+        color: red;
+    }
+
+  </style>
+  <link rel="stylesheet" href="{{ static('asset', 'css/my-page.css') }}">
+     <!-- find section -->
+  <section class="find_section ">
+    <div class="container">
+      <form action="http://demo.qfpffmp.cn/cssthemes6/hdsn_15_teaser/index.html">
+        <div class=" form-row">
+          <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="Serach Your Categories ">
+          </div>
+          <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="Location ">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="">
+              search
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- end find section -->
+
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding-bottom">
+    <div class="square-box">
+      <img src="{{ static('asset','square.png') }}" alt="">
+    </div>
+    <div class="container">
+        {% for hotel in hotelsList %}
+        <div class="row mt-5">
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="http://pavo.elongstatic.com/405/{{ hotel['photoUrl'] }}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                {{ hotel['hotelNameCn'] }}
+              </h2>
+            </div>
+            <p>
+                <p class="hotelNameEn">{{ hotel['showHotelNameEn'] }}</p>
+                <p class="hotelComment">{{ hotel['hotelCommentInfo']['commentScore'] }}分 {{ hotel['hotelCommentInfo']['scoreInfo'] }}</p>
+                <p class="hotelLabels"> {{ hotel['hotelStarDesc'] }} |
+                    {% for i in hotel['hotelLabels'] %}
+                    {{ i }}
+                    {% endfor %}
+                </p>
+                <p class="hotelDistrict">
+                   该酒店靠近 "{{ hotel['poiDistrict']['name'] }}"
+                </p>
+                <p class="hotelBookInfo">
+                    {{ hotel['bookInfo'] if hotel['bookInfo'] else "最新预订:暂无预定" }}
+                </p>
+                <p class="hotelLowestPrice">
+                    <span class="price">￥<span style="font-size: 36px;">{{ hotel['hotelLowestPrice'] }}</span></span> 起
+                </p>
+            </p>
+            <a href="http://ihotel.elong.com/{{ hotel['hotelId'] }}">
+              查看详情
+            </a>
+          </div>
+        </div>
+      </div>
+        {% endfor %}
+        <div class="col-12" style="margin-top: 5%">
+            <center>
+                <div class="my-page">
+{#                    <li><a href="#">&laquo;</a></li>#}
+{#                        <li><a href="#">1</a></li>#}
+{#                    <li><a href="#">&raquo;</a></li>#}
+
+                </div>
+            </center>
+        </div>
+    </div>
+  </section>
+ <script src="{{ static('asset', 'js/my-page.js') }}"></script>
+ <script>
+         function replaceParamVal(paramName,replaceWith) {
+            var oUrl = this.location.href.toString();
+            var re=eval('/('+ paramName+'=)([^&]*)/gi');
+            var nUrl = oUrl.replace(re,paramName+'='+replaceWith);
+            this.location = nUrl;
+        　　window.location.href=nUrl
+        }
+        myPageInit({
+            pages: {{ pages['pageTotal'] }},
+            currentPage: {{ pages['pageNo'] }},
+            element: '.my-page',
+            callback: function (page) {
+                console.log("当前页:", page);
+                if(page !== {{ pages['pageNo'] }})
+                    replaceParamVal("page",page);
+
+            }
+        });
+</script>
+  <!-- end about section -->
+{% endblock %}

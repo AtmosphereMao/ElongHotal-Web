@@ -19,6 +19,9 @@ DRIVERS = {
     'disk': {
         'location': 'storage/uploads'
     },
+    'asset': {
+        'location': env('APP_URL')
+    },
     's3': {
         'client': env('S3_CLIENT', 'AxJz...'),
         'secret': env('S3_SECRET', 'HkZj...'),
