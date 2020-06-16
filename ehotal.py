@@ -10,12 +10,15 @@ import random
 from Crypto.Cipher import AES
 import base64
 from binascii import a2b_hex
+from bs4 import BeautifulSoup
 
 regionId = '179900'
 filterName = ''
 GET_URL = 'http://ihotel.elong.com/region_%s/'
 GET_HOTALS_URL = 'http://ihotel.elong.com/list/GetHotelListFromhotel' # regionId | 查询内容 | 排序0,1 | 页数 | code
 GET_SCRIPTCODE_URL = 'http://ihotel.elong.com/list/scriptCode?regionId=%s&_=%i'
+GET_HOTEL_URL = 'http://ihotel.elong.com/%s/' # hotelId
+
 
 # 请求头
 HEADER = {
@@ -50,6 +53,7 @@ class NoRedirHandle(urllib.request.HTTPRedirectHandler):
         return fp
     http_error_301 = http_error_302
 
+# AES
 class PrpCrypt(object):
     def __init__(self, key, iv):
         self.key = key.encode('utf-8')
@@ -100,46 +104,7 @@ class PrpCrypt(object):
         return self.__unpad(plain_text.decode('utf-8')) # 向上转型为UTF-8格式
 
 
-
-def getHotels(page=1, sort=0, keyword=""):
-    params = {'keyword': keyword, 'filterName' : filterName}
-    # 访问首页
-    request = urllib.request.Request(url=GET_URL % regionId,
-                                     data=urllib.parse.urlencode(params).encode(encoding='UTF-8'),
-                                     method='GET')
-    response = opener.open(request)
-    # 获取需解密的内容
-    html = response.read().decode('utf-8')
-    keyData = re.search('<input type="hidden" style="display: none;" id="tsd" autocomplete="off" value="(.*?)">', html, re.S).group(1)
-    # print(keyData)
-    # 进行解密
-    crypt = AesCrypt(keyData)
-    code = crypt.c(regionId)
-    print("code:", code)
-
-    # 爬取酒店列表  # regionId | 查询内容 | 排序0,1 | 页数 | code
-    # searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=
-    params = {'searchFeatures': '[]',
-              'regionId': regionId,
-              'keyword': keyword,
-              'sort': sort,
-              'traceToken': '',
-              'pageNo': page,
-              'code': code,
-              'groupId': ''
-              }
-    data = urllib.parse.urlencode(params)
-    # GET_HOTALS_URL+"?searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=" % (regionId, keyword, sort, page, code)
-    request = urllib.request.Request(url=GET_HOTALS_URL+"?"+data,
-                                     method='GET')
-    response = opener.open(request)
-    # 获取需解密的内容
-    html = response.read().decode('utf-8')
-    hotels = json.loads(html)
-
-    return hotels
-
-
+# code 解密算法
 class AesCrypt:
     def __init__(self, keyData):
         self.keyData = keyData
@@ -183,12 +148,61 @@ class AesCrypt:
             m += 'a'
         return regionId + "a" + m
 
+
+def getHotels(page=1, sort=0, keyword=""):
+    params = {'keyword': keyword, 'filterName' : filterName}
+    # 访问首页
+    request = urllib.request.Request(url=GET_URL % regionId,
+                                     data=urllib.parse.urlencode(params).encode(encoding='UTF-8'),
+                                     method='GET')
+    response = opener.open(request)
+    # 获取需解密的内容
+    html = response.read().decode('utf-8')
+    keyData = re.search('<input type="hidden" style="display: none;" id="tsd" autocomplete="off" value="(.*?)">', html, re.S).group(1)
+    # print(keyData)
+    # 进行解密
+    crypt = AesCrypt(keyData)
+    code = crypt.c(regionId)
+    print("code:", code)
+
+    # 爬取酒店列表  # regionId | 查询内容 | 排序0,1 | 页数 | code
+    # searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=
+    params = {'searchFeatures': '[]',
+              'regionId': regionId,
+              'keyword': keyword,
+              'sort': sort,
+              'traceToken': '',
+              'pageNo': page,
+              'code': code,
+              'groupId': ''
+              }
+    data = urllib.parse.urlencode(params)
+    # GET_HOTALS_URL+"?searchFeatures=%%5B%%5D&regionId=%s&keyword=%s&sort=%i&traceToken=&pageNo=%i&code=%s&groupId=" % (regionId, keyword, sort, page, code)
+    request = urllib.request.Request(url=GET_HOTALS_URL+"?"+data,
+                                     method='GET')
+    response = opener.open(request)
+    # 获取需解密的内容
+    html = response.read().decode('utf-8')
+    hotels = json.loads(html)
+
+    return hotels
+
+def getHotel(hotelId):
+    # 访问首页
+    request = urllib.request.Request(url=GET_HOTEL_URL % hotelId,
+                                     method='GET')
+    response = opener.open(request)
+    soup = BeautifulSoup(response.read(), "html.parser")
+    return {'hotelInfo': soup.find_all('div', {'class': 'newhrela_pi_wrap'})[0],
+           'hotelIntroduce': soup.find_all('div', {'id': 'iscrollNewSummary'})[0]}
+
 def main():
-    hotels = getHotels()
-    if hotels['errno'] != 0:
-        print("获取酒店发生错误")
-    else:
-        print(hotels['data'])
+    # hotels = getHotels()
+    # if hotels['errno'] != 0:
+    #     print("获取酒店发生错误")
+    # else:
+    #     print(hotels['data'])
+    getHotel('415169')
 
 if __name__ == '__main__':
     main()

@@ -71,3 +71,6 @@
 2020-06-15 14:00:45 - ERROR - SyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\bootstrap\start.py on line 38
 2020-06-15 14:02:42 - ERROR - UnicodeEncodeError in e:\python 3.6.7\lib\http\client.py on line 1117
 2020-06-15 14:06:04 - ERROR - UnicodeEncodeError in e:\python 3.6.7\lib\http\client.py on line 1117
+2020-06-16 04:00:48 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58
+2020-06-16 04:01:22 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58
+2020-06-16 04:10:33 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58

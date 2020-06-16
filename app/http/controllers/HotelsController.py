@@ -7,6 +7,7 @@ from masonite.controllers import Controller
 import ehotal
 
 
+
 class HotelsController(Controller):
     """HotelsController Controller Class."""
 
