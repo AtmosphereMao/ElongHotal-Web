@@ -135,7 +135,7 @@
                     <span class="price">￥<span style="font-size: 36px;">{{ hotel['hotelLowestPrice'] }}</span></span> 起
                 </p>
             </p>
-            <a href="http://ihotel.elong.com/{{ hotel['hotelId'] }}">
+            <a href="{{ static('asset','hotels/'+hotel['hotelId']) }}">
               查看详情
             </a>
           </div>
