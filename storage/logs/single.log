@@ -74,3 +74,4 @@
 2020-06-16 04:00:48 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58
 2020-06-16 04:01:22 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58
 2020-06-16 04:10:33 - ERROR - TemplateSyntaxError in F:\PythonÎÄµµ\ÅÀ³æ\ElongHotel\resources\templates\hotelView.html on line 58
+2020-06-16 06:57:34 - ERROR - URLError in e:\python 3.6.7\lib\urllib\request.py on line 1320
