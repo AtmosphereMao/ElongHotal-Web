@@ -12,6 +12,8 @@ pip安装requirements.txt，控制台运行craft即可。
 
 `
 pip install -r requirements.txt # 安装外部库
+
 craft install   # 安装依赖项
+
 craft serve     # 启动服务器
 `
