@@ -3,9 +3,14 @@
 - 基于urllib库进行信息的爬取
 - 基于Masonite框架进行Web平台的开发
 
+这是一个Python爬虫课的大作业，非商业用途，仅供学习。
+
 ## 运行方式
 配置`.env`文件
 
 pip安装`masonite`，控制台运行craft即可。
 
-`craft serve`
+`
+craft install   # 安装依赖项
+craft serve     # 启动服务器
+`
