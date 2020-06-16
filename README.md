@@ -8,12 +8,12 @@
 ## 运行方式
 配置`.env`文件
 
-pip安装requirements.txt，控制台运行craft即可。
+pip安装`requirements.txt`，控制台运行`craft`即可。
 
-`
+```
 pip install -r requirements.txt # 安装外部库
 
 craft install   # 安装依赖项
 
 craft serve     # 启动服务器
-`
+```
